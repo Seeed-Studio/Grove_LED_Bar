@@ -5,7 +5,7 @@
   Original Author: LG
 
   Modify: Loovee, 2014-2-26
-  User can config which Io to be used.
+  User can choose which Io to be used.
   
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public

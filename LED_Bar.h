@@ -5,7 +5,7 @@
   Original Author: LG
   
   Modify: Loovee, 2014-2-26
-  User can config which Io to be used.
+  User can choose which Io to be used.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -33,22 +33,22 @@ class LED_Bar
 
 private:
 
-    int __pinClk;
-    int __pinDta;
+    int __pinClk;                                   // pin of clk
+    int __pinDta;                                   // pin of data
     
-    unsigned int __led_state;
+    unsigned int __led_state;                       // led state
     
 private:
 
-    void send16bitData(unsigned int data);
-    void latchData(void);
+    void send16bitData(unsigned int data);          // send a word to led bar
+    void latchData(void);                           // latch data
     
 public:
 
-    LED_Bar(int pinClk, int pinDta);
-    void ledIndexBit(unsigned int index_bits);
-    void setLevel(int level);
-    void setSingleLed(int num, int st);
+    LED_Bar(int pinClk, int pinDta);                // initialize
+    void ledIndexBit(unsigned int index_bits);      // index bit led
+    void setLevel(int level);                       // set level
+    void setSingleLed(int num, int st);             // set si
 
 
 
