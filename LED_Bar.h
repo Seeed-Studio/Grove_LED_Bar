@@ -48,4 +48,5 @@ class LED_Bar
   int _clk;
   int _dat;
 };
-#endif;
+
+#endif
