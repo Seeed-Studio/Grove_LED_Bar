@@ -101,6 +101,23 @@ void LED_Bar::setLevel(int level)
     latchData();
 }
 
+// set level in the opposite direction (green to red)
+void LED_Bar::setLevelReverse(int level)
+{
+    if(level>10)return;
+
+    send16bitData(CMDMODE);
+
+    for(int i=0;i<12;i++)
+    {
+        unsigned int state1 = (i>=(10-level)) ? ON : SHUT;
+        
+        send16bitData(state1);
+    }
+
+    latchData();
+}
+
 // control a single led
 // num - which led
 // st - 1: on   0: off
