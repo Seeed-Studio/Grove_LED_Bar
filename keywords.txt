@@ -3,4 +3,5 @@ LED_Bar	KEYWORD1
 
 ledIndexBit	KEYWORD2
 setLevel	KEYWORD2
+setLevelReverse	KEYWORD2
 setSingleLed	KEYWORD2

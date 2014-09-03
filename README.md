@@ -21,7 +21,7 @@ we integrate resources to serve new era of innovation. Seeed also works with <br
 global distributors and partners to push open hardware movement.<br>
 
 
-[1]:http://www.seeedstudio.com/wiki/LED_Bar
+[1]:http://www.seeedstudio.com/wiki/Grove_-_LED_Bar
 
 
 

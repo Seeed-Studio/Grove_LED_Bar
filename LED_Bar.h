@@ -48,7 +48,8 @@ public:
     LED_Bar(int pinClk, int pinDta);                // initialize
     void ledIndexBit(unsigned int index_bits);      // index bit led
     void setLevel(int level);                       // set level
-    void setSingleLed(int num, int st);             // set si
+    void setLevelReverse(int level);                // set level in the opposite direction (green to red)
+    void setSingleLed(int num, int st);             // set single led
 
 
 
