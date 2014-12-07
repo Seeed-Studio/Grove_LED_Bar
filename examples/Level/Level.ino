@@ -1,21 +1,29 @@
-// demo of Grove - Led Bar
-// this demo will show you how to use setLevel function of this library
-// first, you need to choos which io to used. 
+/*
+Grove LED Bar - Level Example
+This example will show you how to use setLevel() function of this library.
+The setLevel() function illuminates the given number of LEDs from either side.
 
-#include <LED_Bar.h>
+Syntax setLevel(level)
+0  = all LEDs off
+5  = 5 LEDs on
+10 = all LEDs on
+*/
 
-LED_Bar bar(9, 8);                  // config Io here, (clk, dio)
+#include <Grove_LED_Bar.h>
+
+Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
 
 void setup()
 {
-    // nothing to initialize
+  // nothing to initialize
 }
 
 void loop()
 {
-    for(int i=0; i<=10; i++)
-    {
-        bar.setLevel(i);
-        delay(100);
-    }
+  // Walk through the levels
+  for (int i = 0; i <= 10; i++)
+  {
+    bar.setLevel(i);
+    delay(100);
+  }
 }
