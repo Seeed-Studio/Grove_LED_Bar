@@ -48,10 +48,10 @@ void loop()
   {
     bar.setLevel(i);
     delay(500);
-    
+
     bar.setGreenToRed(1);
     delay(500);
-    
+
     bar.setGreenToRed(0);
   }
   bar.setLevel(0);

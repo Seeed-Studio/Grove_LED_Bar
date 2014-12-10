@@ -2,9 +2,9 @@ Grove_LED_Bar
 -------------------------------------------------------------
 ![image](http://www.seeedstudio.com/wiki/images/b/b8/Bar.jpg)
 
-LED Bar, common in volume display, is a common sensor component to display analog value. You can use a row of discrete LED lights to make division of this effect, you can also use our element mentioned here. 
+Grove LED Bar, common in volume display, is a common sensor component to display analog value. You can use a row of discrete LED lights to make division of this effect, you can also use our element mentioned here.
 
-For more information, please refer to [Grove_LED_Bar][1]
+For more information, please refer to [Grove_LED_Bar][1] and [LED_Bar][2]
 
 ----
 This software is written by Frankie Chu for seeed studio<br>
@@ -23,6 +23,7 @@ global distributors and partners to push open hardware movement.<br>
 
 [1]:http://www.seeedstudio.com/wiki/Grove_-_LED_Bar
 
+[2]:http://www.seeedstudio.com/wiki/LED_Bar
 
 
 [![Analytics](https://ga-beacon.appspot.com/UA-46589105-3/Grove_LED_Bar)](https://github.com/igrigorik/ga-beacon)

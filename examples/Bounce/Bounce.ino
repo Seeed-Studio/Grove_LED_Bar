@@ -20,10 +20,10 @@ void loop()
 {
   // Switch on the first two LEDs
   bar.setLevel(2);
-  
+
   // Get the current state (which is 0x3)
   state = bar.getBits();
-  
+
   // Bounce to the right
   for (int i = 0; i < 8; i++)
   {
