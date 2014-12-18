@@ -1,33 +1,60 @@
-// demo of Grove - Led Bar
-// this demo will show you how to use setSingleLed(int num, int st) of this library
-// there are 10 leds in Grove - Led Bar
-// num - which led 
-// st  - state: 0 off 1 on
+/*
+Grove LED Bar - Control Single LED Example
+This example will show you how to use the setLed() function of this library.
+There are 10 LEDs in the Grove LED Bar.
+Use this method to set a single LED.
 
-#include <LED_Bar.h>
+Syntax setLed(led, state)
+led (1-10)
+state (0=off, 1=on)
+*/
 
-LED_Bar bar(6, 5);                          // config Io here, (clk, dio)
+#include <Grove_LED_Bar.h>
+
+Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
 
 void setup()
 {
-    // nothing to initialize
+  // nothing to initialize
 }
 
 void loop()
 {
-    for(int i=0; i<=10; i++)
-    {
-        if(0 == i)
-        {
-            bar.setSingleLed(0, 1);         // led0 on
-            bar.setSingleLed(10, 0);        // led10 off
-        }
-        else
-        {
-            bar.setSingleLed(i, 1);         // ledi on
-            bar.setSingleLed(i-1, 0);       // ledi-1 off
-        }
-        
-        delay(100);
-    }
+  // Set LED 3 on
+  bar.setLed(3, 1);
+  delay(500);
+
+  // Set LED 5 on
+  bar.setLed(5, 1);
+  delay(500);
+
+  // Set LED 7 on
+  bar.setLed(7, 1);
+  delay(500);
+
+  // Set LED 3 off
+  bar.setLed(3, 0);
+  delay(500);
+
+  // Set LED 5 off
+  bar.setLed(5, 0);
+  delay(500);
+
+  // Set LED 7 off
+  bar.setLed(7, 0);
+  delay(500);
+
+  // Turn all LEDs on
+  for (int i = 1; i <= 10; i++)
+  {
+    bar.setLed(i, 1);
+    delay(500);
+  }
+
+  // Turn all LEDs off
+  for (int i = 1; i <= 10; i++)
+  {
+    bar.setLed(i, 0);
+    delay(500);
+  }
 }
