@@ -134,6 +134,8 @@ void Grove_LED_Bar::toggleLed(unsigned char led)
 //                       10       1
 void Grove_LED_Bar::setBits(unsigned int bits)
 {
+  __state = bits & 0x3FF;
+
   sendData(CMDMODE);
 
   for (unsigned char i = 0; i < 10; i++)
