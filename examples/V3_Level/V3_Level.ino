@@ -23,6 +23,7 @@ void loop()
     bar.setLevel(10-i);
     delay(25);
   };
+  
   // Change orientation
   bar.setGreenToRed(true);
   for (float i = 0; i < 10.1; i += 0.125) {
