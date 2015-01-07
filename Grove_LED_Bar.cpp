@@ -82,6 +82,7 @@ void Grove_LED_Bar::setGreenToRed(bool greenToRed)
 // Set level (0-10)
 // Level 0 means all leds off
 // Level 10 means all leds on
+// Level 4.5 means 4 LEDs on and the 5th LED's half on
 void Grove_LED_Bar::setLevel(float level)
 {
   level = max(0, min(10, level));
@@ -111,7 +112,11 @@ void Grove_LED_Bar::setLed(unsigned char led, float brightness)
   led--;
 
   // 8 (noticable) levels of brightness
-  __state[led] = (unsigned char) (brightness*8);
+  // 00000000 darkest
+  // 00000011 brighter
+  // ........
+  // 11111111 brightest
+  __state[led] = ~(~0 << (unsigned char) (brightness*8));
 
   setBits(__state);
 }
@@ -126,7 +131,7 @@ void Grove_LED_Bar::toggleLed(unsigned char led)
   // Zero based index 0-9 for bitwise operations
   led--;
 
-  __state[led] = !__state[led];
+  __state[led] = __state[led] ? 0 : ~0;
 
   setBits(__state);
 }
@@ -135,7 +140,7 @@ void Grove_LED_Bar::toggleLed(unsigned char led)
 // each element in the state will hold the brightness level
 // 00000000 darkest
 // 00000011 brighter
-// 00011111 brighter
+// ........
 // 11111111 brightest
 void Grove_LED_Bar::setBits(unsigned char bits[])
 {
@@ -145,10 +150,12 @@ void Grove_LED_Bar::setBits(unsigned char bits[])
   {
     if (__greenToRed)
     {
+	  // Go backward on __state
       sendData(bits[10-i-1]);
     }
     else
     {
+	  // Go forward on __state
       sendData(bits[i]);
     }
   }
@@ -162,7 +169,7 @@ void Grove_LED_Bar::setBits(unsigned char bits[])
 
 
 // Return the current state
-unsigned char *Grove_LED_Bar::getBits()
+unsigned char const *Grove_LED_Bar::getBits()
 {
   return __state;
 }

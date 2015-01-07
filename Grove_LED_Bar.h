@@ -56,7 +56,7 @@ public:
   void setLed(unsigned char led, float brightness);// Set brightness for a single led, range from 0 to 1
   void toggleLed(unsigned char led);               // Toggle a single led
   void setBits(unsigned char bits[]);              // Toggle leds to match given bits
-  unsigned char *getBits();                        // Get the current state
+  unsigned char const *getBits();                        // Get the current state
 };
 
 #endif
