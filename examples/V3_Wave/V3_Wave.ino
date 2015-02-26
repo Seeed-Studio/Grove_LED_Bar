@@ -13,7 +13,7 @@ void setup()
 }
 
 // Frames of continuous waves
-unsigned char state[20] =
+unsigned char state[] =
 {
   0b11111111,
   0b01111111,
@@ -21,6 +21,12 @@ unsigned char state[20] =
   0b00011111,
   0b00001111,
   0b00000111,
+  0b00000011,
+  0b00000001,
+  0b00000000,
+  0b00000001,
+  0b00000011,
+  0b00000111,
   0b00001111,
   0b00011111,
   0b00111111,
@@ -31,16 +37,15 @@ unsigned char state[20] =
   0b00011111,
   0b00001111,
   0b00000111,
-  0b00001111,
-  0b00011111,
-  0b00111111,
-  0b01111111 
+  0b00000011,
+  0b00000001,
+  0b00000000
 };
 
 void loop()
 {
-  for (byte i = 0; i < 10; i++) {
+  for (byte i = 0; i < (sizeof(state) - 9); i++) {
     bar.setBits(state + i);
-    delay(100);
+    delay(50);
   };
 }
