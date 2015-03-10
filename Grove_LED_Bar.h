@@ -21,12 +21,18 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+/*
+  Modify: Long, 2015-01-07
+  User can change the brightness level for each LED segment
+  Rename constant to avoid name conflict
+*/
 #ifndef Grove_LED_Bar_H
 #define Grove_LED_Bar_H
 
-#define CMDMODE 0x00  // Work on 8-bit mode
-#define ON      0xff  // 8-bit 1 data
-#define OFF     0x00  // 8-bit 0 data
+// Avoid name conflict
+#define GLB_CMDMODE 0x00  // Work on 8-bit mode
+#define GLB_ON      0xff  // 8-bit 1 data
+#define GLB_OFF     0x00  // 8-bit 0 data
 
 class Grove_LED_Bar
 {
@@ -36,7 +42,7 @@ private:
   unsigned int __pinClock;  // Clock pin
   unsigned int __pinData;   // Data pin
   bool __greenToRed;        // Orientation (0 = red to green, 1 = green to red)
-  unsigned int __state;     // Led state
+  unsigned char __state[10];// Led state, brightness for each LED
 
   void sendData(unsigned int data);  // Send a word to led bar
   void latchData(void);              // Load data into the latch register
@@ -45,12 +51,12 @@ public:
 
   Grove_LED_Bar(unsigned char pinClock, unsigned char pinData, bool greenToRed);  // Initialize
 
-  void setGreenToRed(bool greenToRed);         // (Re)set orientation
-  void setLevel(unsigned char level);          // Set level
-  void setLed(unsigned char led, bool state);  // Set a single led
-  void toggleLed(unsigned char led);           // Toggle a single led
-  void setBits(unsigned int bits);             // Toggle leds to match given bits
-  unsigned int getBits();                      // Get the current state
+  void setGreenToRed(bool greenToRed);             // (Re)set orientation
+  void setLevel(float level);                      // Set level, range from 0 to 10
+  void setLed(unsigned char led, float brightness);// Set brightness for a single led, range from 0 to 1
+  void toggleLed(unsigned char led);               // Toggle a single led
+  void setBits(unsigned char bits[]);              // Toggle leds to match given bits
+  unsigned char const *getBits();                        // Get the current state
 };
 
 #endif
