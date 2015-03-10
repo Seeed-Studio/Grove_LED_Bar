@@ -14,6 +14,7 @@ unsigned int state;
 void setup()
 {
   // nothing to initialize
+  bar.begin();
 }
 
 void loop()

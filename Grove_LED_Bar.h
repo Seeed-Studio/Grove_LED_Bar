@@ -46,11 +46,11 @@ private:
 
   void sendData(unsigned int data);  // Send a word to led bar
   void latchData(void);              // Load data into the latch register
-
+  
 public:
 
   Grove_LED_Bar(unsigned char pinClock, unsigned char pinData, bool greenToRed);  // Initialize
-
+  void begin(){pinMode(__pinClock, OUTPUT); pinMode(__pinData, OUTPUT);}
   void setGreenToRed(bool greenToRed);             // (Re)set orientation
   void setLevel(float level);                      // Set level, range from 0 to 10
   void setLed(unsigned char led, float brightness);// Set brightness for a single led, range from 0 to 1

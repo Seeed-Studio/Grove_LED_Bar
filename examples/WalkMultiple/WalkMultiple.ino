@@ -13,6 +13,7 @@ Grove_LED_Bar bar2(7, 6, 1);  // Clock pin, Data pin, Orientation
 void setup()
 {
   // nothing to initialize
+  bar.begin();
 }
 
 void loop()
