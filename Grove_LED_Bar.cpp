@@ -144,6 +144,10 @@ void Grove_LED_Bar::toggleLed(unsigned char led)
 // 11111111 brightest
 void Grove_LED_Bar::setBits(unsigned char bits[])
 {
+  // Save __state
+  for (unsigned char i = 0; i < 10; i++)
+    __state[i] = bits[i];
+
   sendData(GLB_CMDMODE);
 
   for (unsigned char i = 0; i < 10; i++)
@@ -151,12 +155,12 @@ void Grove_LED_Bar::setBits(unsigned char bits[])
     if (__greenToRed)
     {
 	  // Go backward on __state
-      sendData(bits[10-i-1]);
+      sendData(__state[10-i-1]);
     }
     else
     {
 	  // Go forward on __state
-      sendData(bits[i]);
+      sendData(__state[i]);
     }
   }
 
