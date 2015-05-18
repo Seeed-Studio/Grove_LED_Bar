@@ -22,7 +22,6 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <Arduino.h>
 #include "Grove_LED_Bar.h"
 
 Grove_LED_Bar::Grove_LED_Bar(unsigned char pinClock, unsigned char pinData, bool greenToRed)
@@ -75,7 +74,7 @@ void Grove_LED_Bar::setGreenToRed(bool greenToRed)
 {
   __greenToRed = greenToRed;
 
-  setBits(__state);
+  setData(__state);
 }
 
 
@@ -96,7 +95,7 @@ void Grove_LED_Bar::setLevel(float level)
     level -= 8;
   };
 
-  setBits(__state);
+  setData(__state);
 }
 
 
@@ -118,7 +117,7 @@ void Grove_LED_Bar::setLed(unsigned char led, float brightness)
   // 11111111 brightest
   __state[led] = ~(~0 << (unsigned char) (brightness*8));
 
-  setBits(__state);
+  setData(__state);
 }
 
 
@@ -133,7 +132,7 @@ void Grove_LED_Bar::toggleLed(unsigned char led)
 
   __state[led] = __state[led] ? 0 : ~0;
 
-  setBits(__state);
+  setData(__state);
 }
 
 
@@ -142,10 +141,15 @@ void Grove_LED_Bar::toggleLed(unsigned char led)
 // 00000011 brighter
 // ........
 // 11111111 brightest
-void Grove_LED_Bar::setBits(unsigned char bits[])
+void Grove_LED_Bar::setData(unsigned char __state[])
 {
 
-  __state = bits & 0x3FF;
+  __bits = 0x00;
+  for (unsigned char i = 0; i < 10; i++)
+  {
+    if (__state[i] != 0x0)
+      __bits |= (i+1);
+  }
 
   sendData(GLB_CMDMODE);
 
@@ -154,12 +158,50 @@ void Grove_LED_Bar::setBits(unsigned char bits[])
     if (__greenToRed)
     {
 	  // Go backward on __state
-      sendData(bits[10-i-1]);
+      sendData(__state[10-i-1]);
     }
     else
     {
 	  // Go forward on __state
-      sendData(bits[i]);
+      sendData(__state[i]);
+    }
+  }
+
+  // Two extra empty bits for padding the command to the correct length
+  sendData(0x00);
+  sendData(0x00);
+
+  latchData();
+}
+
+void Grove_LED_Bar::setBits(unsigned int bits)
+{
+
+  __bits = bits;
+
+  for (unsigned char i = 0; i < 10; i++)
+  {
+
+    if ((bits % 2) == 1)
+      __state[i] = 0xFF;
+    else
+      __state[i] = 0x00;
+    bits /= 2;
+  }
+
+  sendData(GLB_CMDMODE);
+
+  for (unsigned char i = 0; i < 10; i++)
+  {
+    if (__greenToRed)
+    {
+    // Go backward on __state
+      sendData(__state[10-i-1]);
+    }
+    else
+    {
+    // Go forward on __state
+      sendData(__state[i]);
     }
   }
 
@@ -172,7 +214,7 @@ void Grove_LED_Bar::setBits(unsigned char bits[])
 
 
 // Return the current state
-unsigned char const *Grove_LED_Bar::getBits()
+unsigned int const Grove_LED_Bar::getBits()
 {
-  return __state;
+  return __bits;
 }
