@@ -135,7 +135,6 @@ void Grove_LED_Bar::toggleLed(unsigned char led)
   setData(__state);
 }
 
-
 // each element in the state will hold the brightness level
 // 00000000 darkest
 // 00000011 brighter
@@ -177,8 +176,6 @@ void Grove_LED_Bar::setData(unsigned char __state[])
 void Grove_LED_Bar::setBits(unsigned int bits)
 {
 
-  __bits = bits;
-
   for (unsigned char i = 0; i < 10; i++)
   {
 
@@ -189,27 +186,7 @@ void Grove_LED_Bar::setBits(unsigned int bits)
     bits /= 2;
   }
 
-  sendData(GLB_CMDMODE);
-
-  for (unsigned char i = 0; i < 10; i++)
-  {
-    if (__greenToRed)
-    {
-    // Go backward on __state
-      sendData(__state[10-i-1]);
-    }
-    else
-    {
-    // Go forward on __state
-      sendData(__state[i]);
-    }
-  }
-
-  // Two extra empty bits for padding the command to the correct length
-  sendData(0x00);
-  sendData(0x00);
-
-  latchData();
+  setData(__state);
 }
 
 

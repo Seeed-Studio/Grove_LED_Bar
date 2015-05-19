@@ -45,7 +45,7 @@ private:
   unsigned int __pinData;   // Data pin
   bool __greenToRed;        // Orientation (0 = red to green, 1 = green to red)
   unsigned char __state[10];// Led state, brightness for each LED
-  unsigned int __bits;        // 
+  unsigned int __bits;      // 10bit data
 
   void sendData(unsigned int data);  // Send a word to led bar
   void latchData(void);              // Load data into the latch register
