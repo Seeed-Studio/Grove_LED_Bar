@@ -143,13 +143,6 @@ void Grove_LED_Bar::toggleLed(unsigned char led)
 void Grove_LED_Bar::setData(unsigned char __state[])
 {
 
-  __bits = 0x00;
-  for (unsigned char i = 0; i < 10; i++)
-  {
-    if (__state[i] != 0x0)
-      __bits |= (i+1);
-  }
-
   sendData(GLB_CMDMODE);
 
   for (unsigned char i = 0; i < 10; i++)
@@ -190,8 +183,14 @@ void Grove_LED_Bar::setBits(unsigned int bits)
 }
 
 
-// Return the current state
+// Return the current bits
 unsigned int const Grove_LED_Bar::getBits()
 {
+  unsigned int __bits = 0x00;
+  for (unsigned char i = 0; i < 10; i++)
+  {
+    if (__state[i] != 0x0)
+        __bits |= (0x1 << i);
+  }
   return __bits;
 }
