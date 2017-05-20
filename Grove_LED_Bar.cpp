@@ -63,12 +63,14 @@ void Grove_LED_Bar::latchData()
 // Send 16 bits of data
 void Grove_LED_Bar::sendData(unsigned int data)
 {
+  unisgned int state = 0;
   for (unsigned char i = 0; i < 16; i++)
   {
-    unsigned int state = (data & 0x8000) ? HIGH : LOW;
-    digitalWrite(__pinData, state);
+    unsigned int state1 = (data & 0x8000) ? HIGH : LOW;
+    digitalWrite(__pinData, state1);
 
-    state = digitalRead(__pinClock) ? LOW : HIGH;
+    //state = digitalRead(__pinClock) ? LOW : HIGH;
+    state = 1-state;
     digitalWrite(__pinClock, state);
 
     data <<= 1;
