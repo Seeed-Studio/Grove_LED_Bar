@@ -6,7 +6,7 @@
 
   Modify: Loovee, 2014-2-26
   User can choose which Io to be used.
-  
+
   The MIT License (MIT)
 
   Copyright (c) 2013 Seeed Technology Inc.
@@ -63,7 +63,7 @@ void Grove_LED_Bar::latchData()
 // Send 16 bits of data
 void Grove_LED_Bar::sendData(unsigned int data)
 {
-  unisgned int state = 0;
+  unsigned int state = 0;
   for (unsigned char i = 0; i < 16; i++)
   {
     unsigned int state1 = (data & 0x8000) ? HIGH : LOW;
@@ -96,12 +96,12 @@ void Grove_LED_Bar::setLevel(float level)
 {
   level = max(0, min(10, level));
   level *= 8; // there are 8 (noticable) levels of brightness on each segment
-  
+
   // Place number of 'level' of 1-bits on __state
   for (byte i = 0; i < 10; i++) {
     __state[i] = (level > 8) ? ~0 :
                  (level > 0) ? ~(~0 << byte(level)) : 0;
-               
+
     level -= 8;
   };
 
