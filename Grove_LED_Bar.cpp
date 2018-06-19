@@ -94,7 +94,7 @@ void Grove_LED_Bar::setGreenToRed(bool greenToRed)
 // Level 4.5 means 4 LEDs on and the 5th LED's half on
 void Grove_LED_Bar::setLevel(float level)
 {
-  level = max(0, min(10, level));
+  level = max(0.0F, min(10.0F, level));
   level *= 8; // there are 8 (noticable) levels of brightness on each segment
 
   // Place number of 'level' of 1-bits on __state
@@ -114,8 +114,8 @@ void Grove_LED_Bar::setLevel(float level)
 // brightness (0-1)
 void Grove_LED_Bar::setLed(unsigned char led, float brightness)
 {
-  led = max(1, min(10, led));
-  brightness = max(0, min(brightness, 1));
+  led = max(1, min(10, (int) led));
+  brightness = max(0.0F, min(brightness, 1.0F));
 
   // Zero based index 0-9 for bitwise operations
   led--;
@@ -135,7 +135,7 @@ void Grove_LED_Bar::setLed(unsigned char led, float brightness)
 // led (1-10)
 void Grove_LED_Bar::toggleLed(unsigned char led)
 {
-  led = max(1, min(10, led));
+  led = max(1, min(10, (int) led));
 
   // Zero based index 0-9 for bitwise operations
   led--;
