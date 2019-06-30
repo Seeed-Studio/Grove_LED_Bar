@@ -1,8 +1,13 @@
 Grove LED Bar
 -------------------------------------------------------------
-![image](Grove_LED_Bar.gif)
+![image](Grove_LED_Bar.gif) 
 
-[Grove LED Bar v2.0](https://www.seeedstudio.com/Grove-LED-Bar-v2.0-p-2474.html)
+![image](https://www.seeedstudio.com/media/catalog/product/cache/ef3164306500b1080e8560b2e8b5cc0f/h/t/httpsstatics3.seeedstudio.comimagesproductgrove20circular20led.jpg)
+
+- [Grove LED Bar v2.0](https://www.seeedstudio.com/Grove-LED-Bar-v2.0-p-2474.html)
+
+- [Grove - Circular LED](https://www.seeedstudio.com/Grove-Circular-LED-p-1353.html)
+
 
 Grove LED Bar is comprised of a 10 segment LED gauge bar and an MY9221 LED driver.
 It can be used as a indicator for remaining battery life, voltage, water level, music volume or other values that require a gradient display.
