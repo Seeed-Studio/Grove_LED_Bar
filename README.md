@@ -1,4 +1,4 @@
-Grove LED Bar
+Grove LED Bar && Grove  Circular LED
 -------------------------------------------------------------
 ![image](Grove_LED_Bar.gif) 
 
