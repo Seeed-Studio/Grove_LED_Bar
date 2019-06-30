@@ -44,6 +44,9 @@
 #define GLB_ON      0xff  // 8-bit 1 data
 #define GLB_OFF     0x00  // 8-bit 0 data
 
+#ifndef MY9221_LED_NUM
+#define MY9221_LED_NUM 10
+#endif 
 class Grove_LED_Bar
 {
 
@@ -52,7 +55,7 @@ private:
   unsigned int __pinClock;  // Clock pin
   unsigned int __pinData;   // Data pin
   bool __greenToRed;        // Orientation (0 = red to green, 1 = green to red)
-  unsigned char __state[10];// Led state, brightness for each LED
+  unsigned char __state[MY9221_LED_NUM];// Led state, brightness for each LED
 
   void sendData(unsigned int data);  // Send a word to led bar
   void latchData(void);              // Load data into the latch register
