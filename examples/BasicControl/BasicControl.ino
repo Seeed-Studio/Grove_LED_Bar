@@ -20,7 +20,7 @@ dec    hex     binary
 
 The bits >10 are ignored, shown here as x: 0bxxxxx0000000000
 */
-#define MY9221_LED_NUM 10
+
 // #define MY9221_LED_NUM 24
 
 #include <Grove_LED_Bar.h>
@@ -72,6 +72,7 @@ void loop()
   delay(1000);
 
 #if  MY9221_LED_NUM == 24
+  bar.setLedNum(24);
   // Turn on LEDs 11, 12, 13, 14, 15, 16, 17,18
   bar.setBits(0b000001111111100000000000);
   delay(1000);

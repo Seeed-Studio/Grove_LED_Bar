@@ -32,13 +32,14 @@
 
 #include "Grove_LED_Bar.h"
 
-Grove_LED_Bar::Grove_LED_Bar(unsigned char pinClock, unsigned char pinData, bool greenToRed)
+Grove_LED_Bar::Grove_LED_Bar(unsigned char pinClock, unsigned char pinData, bool greenToRed, unsigned char led_num)
 {
   __pinClock = pinClock;
   __pinData = pinData;
   __greenToRed = greenToRed;  // ascending or decending
+  __led_num = led_num;
 
-  for (byte i = 0; i < MY9221_LED_NUM; i++)
+  for (byte i = 0; i < __led_num; i++)
     __state[i] = 0x00;  // persist state so individual leds can be toggled
 
   pinMode(__pinClock, OUTPUT);
@@ -88,17 +89,17 @@ void Grove_LED_Bar::setGreenToRed(bool greenToRed)
 }
 
 
-// Set level (0-MY9221_LED_NUM)
+// Set level (0-__led_num)
 // Level 0 means all leds off
-// Level MY9221_LED_NUM means all leds on
+// Level __led_num means all leds on
 // Level 4.5 means 4 LEDs on and the 5th LED's half on
 void Grove_LED_Bar::setLevel(float level)
 {
-  level = max(0.0F, min(MY9221_LED_NUM.0F, level));
+  level = max(0.0F, min(__led_num, level));
   level *= 8; // there are 8 (noticable) levels of brightness on each segment
 
   // Place number of 'level' of 1-bits on __state
-  for (byte i = 0; i < MY9221_LED_NUM; i++) {
+  for (byte i = 0; i < __led_num; i++) {
     __state[i] = (level > 8) ? ~0 :
                  (level > 0) ? ~(~0 << byte(level)) : 0;
 
@@ -110,11 +111,11 @@ void Grove_LED_Bar::setLevel(float level)
 
 
 // Set a single led
-// led (1-MY9221_LED_NUM)
+// led (1-__led_num)
 // brightness (0-1)
 void Grove_LED_Bar::setLed(unsigned char led, float brightness)
 {
-  led = max(1, min(MY9221_LED_NUM, (int) led));
+  led = max(1, min(__led_num, (int) led));
   brightness = max(0.0F, min(brightness, 1.0F));
 
   // Zero based index 0-9 for bitwise operations
@@ -132,10 +133,10 @@ void Grove_LED_Bar::setLed(unsigned char led, float brightness)
 
 
 // Toggle a single led
-// led (1-MY9221_LED_NUM)
+// led (1-__led_num)
 void Grove_LED_Bar::toggleLed(unsigned char led)
 {
-  led = max(1, min(MY9221_LED_NUM, (int) led));
+  led = max(1, min(__led_num, (int) led));
 
   // Zero based index 0-9 for bitwise operations
   led--;
@@ -155,12 +156,12 @@ void Grove_LED_Bar::setData(unsigned char __state[])
 
   sendData(GLB_CMDMODE);
 
-  for (unsigned char i = 0; i < MY9221_LED_NUM; i++)
+  for (unsigned char i = 0; i < __led_num; i++)
   {
     if (__greenToRed)
     {
 	  // Go backward on __state
-      sendData(__state[MY9221_LED_NUM-i-1]);
+      sendData(__state[__led_num-i-1]);
     }
     else
     {
@@ -179,7 +180,7 @@ void Grove_LED_Bar::setData(unsigned char __state[])
 void Grove_LED_Bar::setBits(unsigned int bits)
 {
 
-  for (unsigned char i = 0; i < MY9221_LED_NUM; i++)
+  for (unsigned char i = 0; i < __led_num; i++)
   {
 
     if ((bits % 2) == 1)
@@ -197,10 +198,13 @@ void Grove_LED_Bar::setBits(unsigned int bits)
 unsigned int const Grove_LED_Bar::getBits()
 {
   unsigned int __bits = 0x00;
-  for (unsigned char i = 0; i < MY9221_LED_NUM; i++)
+  for (unsigned char i = 0; i < __led_num; i++)
   {
     if (__state[i] != 0x0)
         __bits |= (0x1 << i);
   }
   return __bits;
+}
+void Grove_LED_Bar::setLedNum(unsigned int num){
+    __led_num = num;
 }

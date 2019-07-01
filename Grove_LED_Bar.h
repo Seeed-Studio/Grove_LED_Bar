@@ -45,7 +45,7 @@
 #define GLB_OFF     0x00  // 8-bit 0 data
 
 #ifndef MY9221_LED_NUM
-#define MY9221_LED_NUM 10
+#define MY9221_LED_NUM 24
 #endif 
 class Grove_LED_Bar
 {
@@ -54,6 +54,7 @@ private:
 
   unsigned int __pinClock;  // Clock pin
   unsigned int __pinData;   // Data pin
+  unsigned int __led_num;
   bool __greenToRed;        // Orientation (0 = red to green, 1 = green to red)
   unsigned char __state[MY9221_LED_NUM];// Led state, brightness for each LED
 
@@ -63,13 +64,14 @@ private:
 
 public:
 
-  Grove_LED_Bar(unsigned char pinClock, unsigned char pinData, bool greenToRed);  // Initialize
+  Grove_LED_Bar(unsigned char pinClock, unsigned char pinData, bool greenToRed, unsigned char led_num = 10);  // Initialize
   void begin(){pinMode(__pinClock, OUTPUT); pinMode(__pinData, OUTPUT);}
   void setGreenToRed(bool greenToRed);             // (Re)set orientation
   void setLevel(float level);                      // Set level, range from 0 to 10
   void setLed(unsigned char led, float brightness);// Set brightness for a single led, range from 0 to 1
   void toggleLed(unsigned char led);               // Toggle a single led
   void setBits(unsigned int bits);                 // Toggle leds to match given bits
+  void setLedNum(unsigned int bits);
   unsigned int const getBits();                    // Get the current state
 };
 
