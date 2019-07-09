@@ -3,17 +3,27 @@ Grove LED Bar - Walk Multiple Example
 This example will show you how to use setBits() function of this library.
 Set any combination of LEDs using 10 bits.
 This example walks through all 1024 (2^10) possible combinations on two LED Bars.
+
+Ported for MSP-EXP430F5529, TM4c123 (Tiva C) LaunchPad By Cameron P. LaFollette
 */
 
 #include <Grove_LED_Bar.h>
 
-Grove_LED_Bar bar1(9, 8, 0);  // Clock pin, Data pin, Orientation
-Grove_LED_Bar bar2(7, 6, 1);  // Clock pin, Data pin, Orientation
+// Arduino Clock pin, Data pin, Orientation 
+// Grove_LED_Bar bar1(9, 8, 0); // Clock pin, Data pin, Orientation
+//Grove_LED_Bar bar2(7, 6, 1);  // Clock pin, Data pin, Orientation
+
+// LaunchPad Clock pin, Data pin, Orientation
+Grove_LED_Bar bar1(37, 38, 0);  // Clock pin, Data pin, Orientation
+Grove_LED_Bar bar2(35, 36, 0);  // Clock pin, Data pin, Orientation
+
+
 
 void setup()
 {
   // nothing to initialize
-  bar.begin();
+  bar1.begin();
+  bar2.begin();
 }
 
 void loop()
