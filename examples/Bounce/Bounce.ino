@@ -3,11 +3,18 @@ Grove LED Bar - Bounce Example
 This example will show you how to use getBits() function of this library.
 The getBits() function returns the current state so you can modify it.
 Use the setBits() function to save the new state.
+
+Ported to MSP-EXP430F5529, and TM4C123 (Tiva C) by Cameron P. LaFollette
+
 */
 
 #include <Grove_LED_Bar.h>
 
-Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
+// Arduino Clock pin, Data pin, Orientation 
+// Grove_LED_Bar bar(7, 6, 0);  
+
+// LaunchPad Clock pin, Data pin, Orientation
+Grove_LED_Bar bar(35, 36, 0);  // Clock pin, Data pin, Orientation
 
 unsigned int state;
 
