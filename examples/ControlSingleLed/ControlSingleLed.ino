@@ -7,11 +7,17 @@ Use this method to set a single LED.
 Syntax setLed(led, state)
 led (1-10)
 state (0=off, 1=on)
+
+Ported for TM4c123 (Tiva C) LaunchPad By Cameron P. LaFollette
 */
 
 #include <Grove_LED_Bar.h>
+//Arduino
+//Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
 
-Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
+// LaunchPad 
+Grove_LED_Bar bar(35, 36, 0);  // Clock pin, Data pin, Orientation
+
 
 void setup()
 {
