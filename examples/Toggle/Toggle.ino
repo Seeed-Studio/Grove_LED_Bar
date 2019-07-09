@@ -2,11 +2,17 @@
 Grove LED Bar - Toggle Example
 This example will show you how to use toggleLed() function of this library.
 The function lets you set a single led to the opposite of it's current value.
+
+Ported for MSP-EXP430F5529, TM4c123 (Tiva C) LaunchPad By Cameron P. LaFollette
 */
 
 #include <Grove_LED_Bar.h>
 
-Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
+// Arduino Clock pin, Data pin, Orientation 
+// Grove_LED_Bar bar(9, 8, 0); // Clock pin, Data pin, Orientation
+
+// LaunchPad Clock pin, Data pin, Orientation
+Grove_LED_Bar bar(35, 36, 0);  // Clock pin, Data pin, Orientation
 
 void setup()
 {
