@@ -19,18 +19,23 @@ dec    hex     binary
                       10       1
 
 The bits >10 are ignored, shown here as x: 0bxxxxx0000000000
-*/
 
-// #define MY9221_LED_NUM 24
+Ported for MSP-EXP430F5529, TM4c123 (Tiva C) LaunchPad By Cameron P. LaFollette
+*/
 
 #include <Grove_LED_Bar.h>
 
-Grove_LED_Bar bar(7, 6, 0);  // Clock pin, Data pin, Orientation
+// Arduino Clock pin, Data pin, Orientation 
+// Grove_LED_Bar bar(7, 6, 0);  
+
+// LaunchPad Clock pin, Data pin, Orientation
+Grove_LED_Bar bar(35, 36, 0);  
 
 void setup()
 {
   // nothing to initialize
   bar.begin();
+  
 }
 
 void loop()
@@ -70,16 +75,5 @@ void loop()
   // 0b000001111100000 == 0x3E0
   bar.setBits(0b000001111100000);
   delay(1000);
-
-#if  MY9221_LED_NUM == 24
-  bar.setLedNum(24);
-  // Turn on LEDs 11, 12, 13, 14, 15, 16, 17,18
-  bar.setBits(0b000001111111100000000000);
-  delay(1000);
-
-  // Turn on LEDs 19, 20, 21, 22, 23, 24
-  bar.setBits(0b111111000000000000000000);
-  delay(1000);
-
-#endif
 }
+
