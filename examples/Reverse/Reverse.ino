@@ -2,6 +2,7 @@
 Grove LED Bar - Reverse Example
 This example will show you how to use setGreenToRed() function of this library.
 The function is used to reverse the orientation of the LED Bar.
+Ported for MSP-EXP430F5529, TM4c123 (Tiva C) LaunchPad By Cameron P. LaFollette
 */
 
 #include <Grove_LED_Bar.h>
@@ -9,7 +10,12 @@ The function is used to reverse the orientation of the LED Bar.
 // The 3rd parameter sets the initial orientation
 // 0 = green to red, 1 = red to green
 // You can always change it at runtime with the setGreenToRed() function
-Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
+
+// Arduino Clock pin, Data pin, Orientation 
+// Grove_LED_Bar bar(9, 8, 0); // Clock pin, Data pin, Orientation
+
+// LaunchPad Clock pin, Data pin, Orientation
+Grove_LED_Bar bar(35, 36, 0);  // Clock pin, Data pin, Orientation
 
 void setup()
 {
