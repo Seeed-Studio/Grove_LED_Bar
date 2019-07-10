@@ -11,7 +11,10 @@ state (0=off, 1=on)
 
 #include <Grove_LED_Bar.h>
 
-Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
+//BE SURE USE CORRESPONDING DEVICE
+Grove_LED_Bar bar(9, 8, 0, LED_CIRCULAR_24);
+//FOR LED_BAR_10
+//Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
 
 void setup()
 {

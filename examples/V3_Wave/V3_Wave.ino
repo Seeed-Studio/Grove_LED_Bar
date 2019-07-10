@@ -5,7 +5,10 @@ Grove LED Bar - Wave Example
 
 #include <Grove_LED_Bar.h>
 
-Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
+//BE SURE USE CORRESPONDING DEVICE
+Grove_LED_Bar bar(9, 8, 0, LED_CIRCULAR_24);
+//FOR LED_BAR_10
+//Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
 
 void setup()
 {
@@ -46,7 +49,7 @@ unsigned char state[] =
 void loop()
 {
   for (byte i = 0; i < (sizeof(state) - 9); i++) {
-    bar.setBits(state + i);
+    bar.setBits(state[i]);
     delay(50);
   };
 }
