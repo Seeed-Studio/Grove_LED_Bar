@@ -32,12 +32,17 @@
 
 #include "Grove_LED_Bar.h"
 
-Grove_LED_Bar::Grove_LED_Bar(unsigned char pinClock, unsigned char pinData, bool greenToRed, unsigned char led_num)
+uint32_t getRealLedCount(LedType type) {
+    return (uint32_t)type & LED_MASK;
+}
+
+Grove_LED_Bar::Grove_LED_Bar(uint8_t pinClock, uint8_t pinData, bool greenToRed, LedType type)
 {
   __pinClock = pinClock;
   __pinData = pinData;
   __greenToRed = greenToRed;  // ascending or decending
-  __led_num = led_num;
+  __led_num = getRealLedCount(type);
+  __type = type;
 
   for (byte i = 0; i < __led_num; i++)
     __state[i] = 0x00;  // persist state so individual leds can be toggled
@@ -53,7 +58,7 @@ void Grove_LED_Bar::latchData()
   digitalWrite(__pinData, LOW);
   delayMicroseconds(10);
 
-  for (unsigned char i = 0; i < 4; i++)
+  for (uint8_t i = 0; i < 4; i++)
   {
     digitalWrite(__pinData, HIGH);
     digitalWrite(__pinData, LOW);
@@ -62,15 +67,17 @@ void Grove_LED_Bar::latchData()
 
 
 // Send 16 bits of data
-void Grove_LED_Bar::sendData(unsigned int data)
+void Grove_LED_Bar::sendData(uint32_t data)
 {
-  unsigned int state = 0;
-  for (unsigned char i = 0; i < 16; i++)
+  uint32_t state = LED_BAR_10 == __type ? 0 : 1;
+
+  for (uint8_t i = 0; i < 16; i++)
   {
-    unsigned int state1 = (data & 0x8000) ? HIGH : LOW;
+    uint32_t state1 = (data & 0x8000) ? HIGH : LOW;
     digitalWrite(__pinData, state1);
 
     //state = digitalRead(__pinClock) ? LOW : HIGH;
+
     state = 1-state;
     digitalWrite(__pinClock, state);
 
@@ -113,7 +120,7 @@ void Grove_LED_Bar::setLevel(float level)
 // Set a single led
 // led (1-__led_num)
 // brightness (0-1)
-void Grove_LED_Bar::setLed(unsigned char led, float brightness)
+void Grove_LED_Bar::setLed(uint8_t led, float brightness)
 {
   led = max(1, min(__led_num, (int) led));
   brightness = max(0.0F, min(brightness, 1.0F));
@@ -126,7 +133,7 @@ void Grove_LED_Bar::setLed(unsigned char led, float brightness)
   // 00000011 brighter
   // ........
   // 11111111 brightest
-  __state[led] = ~(~0 << (unsigned char) (brightness*8));
+  __state[led] = ~(~0 << (uint8_t) (brightness*8));
 
   setData(__state);
 }
@@ -134,7 +141,7 @@ void Grove_LED_Bar::setLed(unsigned char led, float brightness)
 
 // Toggle a single led
 // led (1-__led_num)
-void Grove_LED_Bar::toggleLed(unsigned char led)
+void Grove_LED_Bar::toggleLed(uint8_t led)
 {
   led = max(1, min(__led_num, (int) led));
 
@@ -151,60 +158,78 @@ void Grove_LED_Bar::toggleLed(unsigned char led)
 // 00000011 brighter
 // ........
 // 11111111 brightest
-void Grove_LED_Bar::setData(unsigned char __state[])
+void Grove_LED_Bar::setData(uint8_t __state[])
 {
+  auto set = [this](uint8_t __state[], uint32_t i) 
+  {
+      if (__greenToRed)
+      {
+          // Go backward on __state
+          sendData(__state[__led_num-i-1]);
+      }
+      else
+      {
+          // Go forward on __state
+          sendData(__state[i]);
+      }
+  };
 
+  uint32_t end = LED_BAR_10 == __type ? 10 : 12;
   sendData(GLB_CMDMODE);
 
-  for (unsigned char i = 0; i < __led_num; i++)
+  for (uint32_t i = 0; i < end; i++) 
   {
-    if (__greenToRed)
+      set(__state, i);
+  }
+
+  if (LED_CIRCULAR_24 == __type) 
+  {
+    sendData(GLB_CMDMODE);
+
+    for (uint32_t i = 12; i < 24; i++) 
     {
-	  // Go backward on __state
-      sendData(__state[__led_num-i-1]);
-    }
-    else
-    {
-	  // Go forward on __state
-      sendData(__state[i]);
+      set(__state, i);
     }
   }
 
   // Two extra empty bits for padding the command to the correct length
-  sendData(0x00);
-  sendData(0x00);
+  if (LED_BAR_10 == __type) {
+      sendData(0x00);
+      sendData(0x00);
+  }
 
   latchData();
 }
 
-void Grove_LED_Bar::setBits(unsigned int bits)
+void Grove_LED_Bar::setBits(uint32_t bits)
 {
 
-  for (unsigned char i = 0; i < __led_num; i++)
+  for (uint8_t i = 0; i < __led_num; i++)
   {
-
-    if ((bits % 2) == 1)
-      __state[i] = 0xFF;
-    else
-      __state[i] = 0x00;
-    bits /= 2;
+    __state[i] = bits & 1 ? 0xff : 0;
+    bits >>= 1;
   }
 
+  for (uint8_t i = __led_num; i < getRealLedCount(__type); i++)
+  {
+    __state[i] = 0;
+    bits >>= 1;
+  }
   setData(__state);
 }
 
 
 // Return the current bits
-unsigned int const Grove_LED_Bar::getBits()
+uint32_t const Grove_LED_Bar::getBits()
 {
-  unsigned int __bits = 0x00;
-  for (unsigned char i = 0; i < __led_num; i++)
+  uint32_t __bits = 0x00;
+  for (uint8_t i = 0; i < __led_num; i++)
   {
     if (__state[i] != 0x0)
         __bits |= (0x1 << i);
   }
   return __bits;
 }
-void Grove_LED_Bar::setLedNum(unsigned int num){
+void Grove_LED_Bar::setLedNum(uint32_t num){
     __led_num = num;
 }

@@ -41,38 +41,56 @@
 
 // Avoid name conflict
 #define GLB_CMDMODE 0x00  // Work on 8-bit mode
-#define GLB_ON      0xff  // 8-bit 1 data
-#define GLB_OFF     0x00  // 8-bit 0 data
 
-#ifndef MY9221_LED_NUM
-#define MY9221_LED_NUM 24
-#endif 
+//FOR INNER DEVELOPER
+//BE SURE TO DISTINGUISH THEM WITH DIFFERENT ENUM NUMBERS
+enum LedType
+{
+    LED_TYPE_SHIFT       = 16,
+
+    //LED_NEW_DEVICE_I & LED_MASK can get the number I
+    LED_MASK             = (1 << LED_TYPE_SHIFT) - 1,
+
+    //LED_NEW_DEVICE_I   = ID << LED_TYPE_SHIFT | I,
+    //I denotes the number of LED lights
+    LED_BAR_10           = 0 << LED_TYPE_SHIFT | 10,
+    LED_CIRCULAR_24      = 0 << LED_TYPE_SHIFT | 24,
+
+    //BE SURE MAX_LED_COUNT DENOTES THE MAX NUMBER OF LED LIGHTS
+    MAX_LED_COUNT        = 24,
+};
+
 class Grove_LED_Bar
 {
 
 private:
 
-  unsigned int __pinClock;  // Clock pin
-  unsigned int __pinData;   // Data pin
-  unsigned int __led_num;
-  bool __greenToRed;        // Orientation (0 = red to green, 1 = green to red)
-  unsigned char __state[MY9221_LED_NUM];// Led state, brightness for each LED
+  uint32_t __pinClock;            // Clock pin
+  uint32_t __pinData;             // Data pin
+  uint32_t __led_num;
+  LedType  __type;
+  bool     __greenToRed;          // Orientation (0 = red to green, 1 = green to red)
+  uint8_t __state[MAX_LED_COUNT]; // Led state, brightness for each LED
 
-  void sendData(unsigned int data);  // Send a word to led bar
-  void latchData(void);              // Load data into the latch register
-  void setData(unsigned char bits[]);//Set data array
+  void sendData(uint32_t data);   // Send a word to led bar
+  void latchData(void);           // Load data into the latch register
+  void setData(uint8_t bits[]);   // Set data array
 
 public:
-
-  Grove_LED_Bar(unsigned char pinClock, unsigned char pinData, bool greenToRed, unsigned char led_num = 10);  // Initialize
-  void begin(){pinMode(__pinClock, OUTPUT); pinMode(__pinData, OUTPUT);}
+  Grove_LED_Bar(uint8_t pinClock, uint8_t pinData, bool greenToRed, LedType type = LED_BAR_10);  // Initialize
+  void begin()
+  {
+      pinMode(__pinClock, OUTPUT); 
+      pinMode(__pinData, OUTPUT);
+  }
   void setGreenToRed(bool greenToRed);             // (Re)set orientation
   void setLevel(float level);                      // Set level, range from 0 to 10
-  void setLed(unsigned char led, float brightness);// Set brightness for a single led, range from 0 to 1
-  void toggleLed(unsigned char led);               // Toggle a single led
-  void setBits(unsigned int bits);                 // Toggle leds to match given bits
-  void setLedNum(unsigned int bits);
-  unsigned int const getBits();                    // Get the current state
+  void setLed(uint8_t led, float brightness);      // Set brightness for a single led, range from 0 to 1
+  void toggleLed(uint8_t led);                     // Toggle a single led
+  void setBits(uint32_t bits);                     // Toggle leds to match given bits
+  void setLedNum(uint32_t bits);
+
+  uint32_t const getBits();                        // Get the current state
 };
 
 #endif
