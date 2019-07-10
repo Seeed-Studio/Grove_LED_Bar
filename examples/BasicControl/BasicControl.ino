@@ -23,7 +23,10 @@ The bits >10 are ignored, shown here as x: 0bxxxxx0000000000
 
 #include <Grove_LED_Bar.h>
 
-Grove_LED_Bar bar(7, 6, 0, LED_CIRCULAR_24);  // Clock pin, Data pin, Orientation
+//BE SURE USE CORRESPONDING DEVICE
+Grove_LED_Bar bar(9, 8, 0, LED_CIRCULAR_24);
+//FOR LED_BAR_10
+//Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
 
 void setup()
 {
@@ -33,60 +36,48 @@ void setup()
 
 void loop()
 {
-  while(true){
-    bar.setBits((unsigned int)-1);
-    delay(1000);
-    bar.setBits((unsigned int)0);
-    delay(1000);
-  }
+  // Turn on all LEDs
+  bar.setBits(0x3ff);
+  delay(1000);
+  
+  // Turn off all LEDs
+  bar.setBits(0x0);
+  delay(1000);
+  
+  // Turn on LED 1
+  // 0b000000000000001 can also be written as 0x1:
+  bar.setBits(0b000000000000001);
+  delay(1000);
+  
+  // Turn on LEDs 1 and 3
+  // 0b000000000000101 can also be written as 0x5:
+  bar.setBits(0b000000000000101);
+  delay(1000);
+  
+  // Turn on LEDs 1, 3, 5, 7, 9
+  bar.setBits(0x155);
+  delay(1000);
+  
+  // Turn on LEDs 2, 4, 6, 8, 10
+  bar.setBits(0x2AA);
+  delay(1000);
+  
+  // Turn on LEDs 1, 2, 3, 4, 5
+  // 0b000000000011111 == 0x1F
+  bar.setBits(0b000000000011111);
+  delay(1000);
+  
+  // Turn on LEDs 6, 7, 8, 9, 10
+  // 0b000001111100000 == 0x3E0
+  bar.setBits(0b000001111100000);
+  delay(1000);
 
-  //// Turn on all LEDs
-  //bar.setLedNum(ports_count);
-  //bar.setBits(0x3ff);
-  //delay(1000);
-  //
-  //// Turn off all LEDs
-  //bar.setBits(0x0);
-  //delay(1000);
-  //
-  //// Turn on LED 1
-  //// 0b000000000000001 can also be written as 0x1:
-  //bar.setBits(0b000000000000001);
-  //delay(1000);
-  //
-  //// Turn on LEDs 1 and 3
-  //// 0b000000000000101 can also be written as 0x5:
-  //bar.setBits(0b000000000000101);
-  //delay(1000);
-  //
-  //// Turn on LEDs 1, 3, 5, 7, 9
-  //bar.setBits(0x155);
-  //delay(1000);
-  //
-  //// Turn on LEDs 2, 4, 6, 8, 10
-  //bar.setBits(0x2AA);
-  //delay(1000);
-  //
-  //// Turn on LEDs 1, 2, 3, 4, 5
-  //// 0b000000000011111 == 0x1F
-  //bar.setBits(0b000000000011111);
-  //delay(1000);
-  //
-  //// Turn on LEDs 6, 7, 8, 9, 10
-  //// 0b000001111100000 == 0x3E0
-  //bar.setBits(0b000001111100000);
-  //delay(1000);
-  //
-  //if (ports_count == 10){
-  //  return;
-  //}
-  //
-  //// Turn on LEDs 11, 12, 13, 14, 15, 16, 17,18
-  //bar.setBits(0b000001111111100000000000);
-  //delay(1000);
-  //
-  //// Turn on LEDs 19, 20, 21, 22, 23, 24
-  //bar.setBits(0b111111000000000000000000);
-  //delay(1000); 
+  // Turn on LEDs 11, 12, 13, 14, 15, 16, 17
+  bar.setBits(0b000000011111110000000000);
+  delay(1000);
+  
+  // Turn on LEDs 18, 19, 20, 21, 22, 23, 24
+  bar.setBits(0b111111100000000000000000);
+  delay(1000); 
 }
 

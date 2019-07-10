@@ -41,17 +41,22 @@
 
 // Avoid name conflict
 #define GLB_CMDMODE 0x00  // Work on 8-bit mode
-#define GLB_ON      0xff  // 8-bit 1 data
-#define GLB_OFF     0x00  // 8-bit 0 data
 
 //FOR INNER DEVELOPER
 //BE SURE TO DISTINGUISH THEM WITH DIFFERENT ENUM NUMBERS
-//if there existed same led count between two different device
-//make sure this line of code in correct translate 
-//__led_num = (uint32_t)type; (at Grove_LED_Bar::Grove_LED_Bar)
-enum LedType : uint8_t {
-    LED_BAR_10           = 10,
-    LED_CIRCULAR_24      = 24,
+enum LedType : uint8_t 
+{
+    LED_TYPE_SHIFT       = 16,
+
+    //LED_NEW_DEVICE_I & LED_MASK can get the number I
+    LED_MASK             = (1 << LED_TYPE_SHIFT) - 1,
+
+    //LED_NEW_DEVICE_I   = ID << LED_TYPE_SHIFT | I,
+    //I denotes the number of LED lights
+    LED_BAR_10           = 0 << LED_TYPE_SHIFT | 10,
+    LED_CIRCULAR_24      = 0 << LED_TYPE_SHIFT | 24,
+
+    //BE SURE MAX_LED_COUNT DENOTES THE MAX NUMBER OF LED LIGHTS
     MAX_LED_COUNT        = 24,
 };
 

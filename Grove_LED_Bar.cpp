@@ -32,12 +32,16 @@
 
 #include "Grove_LED_Bar.h"
 
+uint32_t getRealLedCount(LedType type) {
+    return (uint32_t)type & LED_MASK;
+}
+
 Grove_LED_Bar::Grove_LED_Bar(uint8_t pinClock, uint8_t pinData, bool greenToRed, LedType type)
 {
   __pinClock = pinClock;
   __pinData = pinData;
   __greenToRed = greenToRed;  // ascending or decending
-  __led_num = (uint32_t)type;
+  __led_num = getRealLedCount(type);
   __type = type;
 
   for (byte i = 0; i < __led_num; i++)
@@ -206,6 +210,11 @@ void Grove_LED_Bar::setBits(uint32_t bits)
     bits >>= 1;
   }
 
+  for (uint8_t i = __led_num; i < getRealLedCount(type); i++)
+  {
+    __state[i] = 0;
+    bits >>= 1;
+  }
   setData(__state);
 }
 
