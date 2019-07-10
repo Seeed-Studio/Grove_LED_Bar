@@ -8,9 +8,9 @@ This example walks through all 1024 (2^10) possible combinations.
 #include <Grove_LED_Bar.h>
 
 //BE SURE USE CORRESPONDING DEVICE
-Grove_LED_Bar bar(9, 8, 0, LED_CIRCULAR_24);
+Grove_LED_Bar bar(7, 6, 0, LED_CIRCULAR_24);
 //FOR LED_BAR_10
-//Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
+//Grove_LED_Bar bar(7, 6, 0);  // Clock pin, Data pin, Orientation
 
 void setup()
 {

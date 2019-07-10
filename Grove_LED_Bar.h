@@ -44,7 +44,7 @@
 
 //FOR INNER DEVELOPER
 //BE SURE TO DISTINGUISH THEM WITH DIFFERENT ENUM NUMBERS
-enum LedType : uint8_t 
+enum LedType
 {
     LED_TYPE_SHIFT       = 16,
 

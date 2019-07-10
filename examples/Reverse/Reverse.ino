@@ -7,12 +7,12 @@ The function is used to reverse the orientation of the LED Bar.
 #include <Grove_LED_Bar.h>
 
 //BE SURE USE CORRESPONDING DEVICE
-Grove_LED_Bar bar(9, 8, 0, LED_CIRCULAR_24);
+Grove_LED_Bar bar(7, 6, 0, LED_CIRCULAR_24);
 //FOR LED_BAR_10
 //// The 3rd parameter sets the initial orientation
 // 0 = green to red, 1 = red to green
 // You can always change it at runtime with the setGreenToRed() function
-Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
+Grove_LED_Bar bar(7, 6, 0);  // Clock pin, Data pin, Orientation
 
 void setup()
 {
