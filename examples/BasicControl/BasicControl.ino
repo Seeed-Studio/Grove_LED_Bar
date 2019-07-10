@@ -21,11 +21,12 @@ dec    hex     binary
 The bits >10 are ignored, shown here as x: 0bxxxxx0000000000
 */
 
-// #define MY9221_LED_NUM 24
-
 #include <Grove_LED_Bar.h>
 
-Grove_LED_Bar bar(7, 6, 0);  // Clock pin, Data pin, Orientation
+//BE SURE USE CORRESPONDING DEVICE
+//Grove_LED_Bar bar(7, 6, 0, LED_CIRCULAR_24);
+//FOR LED_BAR_10
+Grove_LED_Bar bar(7, 6, 0, LED_BAR_10); // Clock pin, Data pin, Orientation
 
 void setup()
 {
@@ -71,15 +72,11 @@ void loop()
   bar.setBits(0b000001111100000);
   delay(1000);
 
-#if  MY9221_LED_NUM == 24
-  bar.setLedNum(24);
-  // Turn on LEDs 11, 12, 13, 14, 15, 16, 17,18
-  bar.setBits(0b000001111111100000000000);
+  // Turn on LEDs 11, 12, 13, 14, 15, 16, 17
+  bar.setBits(0b000000011111110000000000);
   delay(1000);
 
-  // Turn on LEDs 19, 20, 21, 22, 23, 24
-  bar.setBits(0b111111000000000000000000);
+  // Turn on LEDs 18, 19, 20, 21, 22, 23, 24
+  bar.setBits(0b111111100000000000000000);
   delay(1000);
-
-#endif
 }

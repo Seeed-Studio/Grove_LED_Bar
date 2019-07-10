@@ -13,11 +13,7 @@ Ported for TM4c123 (Tiva C) LaunchPad By Cameron P. LaFollette
 
 #include <Grove_LED_Bar.h>
 //Arduino
-//Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
-
-// LaunchPad 
-Grove_LED_Bar bar(35, 36, 0);  // Clock pin, Data pin, Orientation
-
+Grove_LED_Bar bar(7, 6, 0, LED_BAR_10); // Clock pin, Data pin, Orientation
 
 void setup()
 {

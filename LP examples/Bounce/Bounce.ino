@@ -10,11 +10,8 @@ Ported to MSP-EXP430F5529, and TM4C123 (Tiva C) by Cameron P. LaFollette
 
 #include <Grove_LED_Bar.h>
 
-// Arduino Clock pin, Data pin, Orientation 
-// Grove_LED_Bar bar(7, 6, 0);  
-
-// LaunchPad Clock pin, Data pin, Orientation
-Grove_LED_Bar bar(35, 36, 0);  // Clock pin, Data pin, Orientation
+// Arduino Clock pin, Data pin, Orientation
+Grove_LED_Bar bar(7, 6, 0, LED_BAR_10);
 
 unsigned int state;
 
