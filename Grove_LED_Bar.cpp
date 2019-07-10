@@ -210,7 +210,7 @@ void Grove_LED_Bar::setBits(uint32_t bits)
     bits >>= 1;
   }
 
-  for (uint8_t i = __led_num; i < getRealLedCount(type); i++)
+  for (uint8_t i = __led_num; i < getRealLedCount(__type); i++)
   {
     __state[i] = 0;
     bits >>= 1;
