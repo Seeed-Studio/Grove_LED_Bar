@@ -1,18 +1,14 @@
 /*
 Grove LED Bar - Control Single LED Example
 ...
-
-Ported for MSP-EXP430F5529, TM4c123 (Tiva C) LaunchPad By Cameron P. LaFollette
 */
 
 #include <Grove_LED_Bar.h>
 
-// Arduino Clock pin, Data pin, Orientation 
-// Grove_LED_Bar bar(9, 8, 0); // Clock pin, Data pin, Orientation
-
-// LaunchPad Clock pin, Data pin, Orientation
-Grove_LED_Bar bar(35, 36, 0);  // Clock pin, Data pin, Orientation
-
+//BE SURE USE CORRESPONDING DEVICE
+Grove_LED_Bar bar(9, 8, 0, LED_CIRCULAR_24);
+//FOR LED_BAR_10
+//Grove_LED_Bar bar(9, 8, 0);  // Clock pin, Data pin, Orientation
 
 void setup()
 {
