@@ -39,40 +39,42 @@
 
 #include <Arduino.h>
 
-// Avoid name conflict
-#define GLB_CMDMODE 0x00  // Work on 8-bit mode
-#define GLB_ON      0xff  // 8-bit 1 data
-#define GLB_OFF     0x00  // 8-bit 0 data
+//BE SURE TO DISTINGUISH THEM WITH DIFFERENT ENUM NUMBERS
+enum LedType {
+    LED_TYPE_SHIFT       = 16,
 
-#ifndef MY9221_LED_NUM
-#define MY9221_LED_NUM 24
-#endif 
-class Grove_LED_Bar
-{
+    //LED_NEW_DEVICE_I & LED_MASK can get the number I
+    LED_MASK             = (1 << LED_TYPE_SHIFT) - 1,
 
-private:
+    //BE SURE MAX_LED_COUNT DENOTES THE MAX NUMBER OF LED LIGHTS
+    LED_MAX_COUNT        = 24,
 
-  unsigned int __pinClock;  // Clock pin
-  unsigned int __pinData;   // Data pin
-  unsigned int __led_num;
-  bool __greenToRed;        // Orientation (0 = red to green, 1 = green to red)
-  unsigned char __state[MY9221_LED_NUM];// Led state, brightness for each LED
+    //FOR USER--------------------------------------------------------
+    //DEVICE-TYPE
+    //LED_NEW_DEVICE_N   = ID << LED_TYPE_SHIFT | N,
+    //N denotes the number of LED lights
+    LED_BAR_10           = 0 << LED_TYPE_SHIFT | 10,
+    LED_CIRCULAR_24      = 0 << LED_TYPE_SHIFT | 24,
+    //--------------------------------------------------------FOR USER
+};
 
-  void sendData(unsigned int data);  // Send a word to led bar
-  void latchData(void);              // Load data into the latch register
-  void setData(unsigned char bits[]);//Set data array
-
+class Grove_LED_Bar{
+  LedType  type;
+  uint32_t pinClock;
+  uint32_t pinData;
+  uint32_t numberOfShows;
+  bool     reverseShow;
+  uint8_t  led[LED_MAX_COUNT];
 public:
-
-  Grove_LED_Bar(unsigned char pinClock, unsigned char pinData, bool greenToRed, unsigned char led_num = 10);  // Initialize
-  void begin(){pinMode(__pinClock, OUTPUT); pinMode(__pinData, OUTPUT);}
-  void setGreenToRed(bool greenToRed);             // (Re)set orientation
-  void setLevel(float level);                      // Set level, range from 0 to 10
-  void setLed(unsigned char led, float brightness);// Set brightness for a single led, range from 0 to 1
-  void toggleLed(unsigned char led);               // Toggle a single led
-  void setBits(unsigned int bits);                 // Toggle leds to match given bits
-  void setLedNum(unsigned int bits);
-  unsigned int const getBits();                    // Get the current state
+  Grove_LED_Bar(uint32_t pinClock, uint32_t pinData, bool reverseShow, LedType type);
+  void begin(){} //dummy
+  void setBits(uint32_t bits);
+  void setLevel(float level);
+  void setLed(uint32_t ledNo, float value);
+  void setGreenToRed(bool reverseShow);
+  void setLedNum(uint32_t numberOfShows);
+  void toggleLed(uint32_t ledNo);
+  uint32_t getBits();
 };
 
 #endif
