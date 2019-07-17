@@ -23,10 +23,12 @@ The bits >10 are ignored, shown here as x: 0bxxxxx0000000000
 
 #include <Grove_LED_Bar.h>
 
-//BE SURE USE CORRESPONDING DEVICE
-//Grove_LED_Bar bar(7, 6, 0, LED_CIRCULAR_24);
-//FOR LED_BAR_10
-Grove_LED_Bar bar(7, 6, 0, LED_BAR_10); // Clock pin, Data pin, Orientation
+#define USE_LED_CIRCULAR_24
+#ifdef USE_LED_CIRCULAR_24
+Grove_LED_Bar bar(7, 6, 0, LED_CIRCULAR_24); // Clock pin, Data pin, Orientation
+#else
+Grove_LED_Bar bar(6, 7, 0, LED_BAR_10); // Clock pin, Data pin, Orientation
+#endif
 
 void setup()
 {
@@ -71,7 +73,7 @@ void loop()
   // 0b000001111100000 == 0x3E0
   bar.setBits(0b000001111100000);
   delay(1000);
-
+  
   /*******************Only used for LED_CIRCULAR_24******/
   // Turn on LEDs 11, 12, 13, 14, 15, 16, 17
   bar.setBits(0b000000011111110000000000);
