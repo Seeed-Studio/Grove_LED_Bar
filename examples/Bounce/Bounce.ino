@@ -8,7 +8,7 @@ Use the setBits() function to save the new state.
 #include <Grove_LED_Bar.h>
 
 //BE SURE USE CORRESPONDING DEVICE
-//Grove_LED_Bar bar(7, 6, 0, LED_CIRCULAR_24);
+//Grove_LED_Bar bar(6, 7, 0, LED_CIRCULAR_24);
 //FOR LED_BAR_10
 Grove_LED_Bar bar(7, 6, 0, LED_BAR_10); // Clock pin, Data pin, Orientation
 
