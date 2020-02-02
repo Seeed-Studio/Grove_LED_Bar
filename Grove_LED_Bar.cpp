@@ -1,37 +1,37 @@
 /*
-  LED bar library V2.0
-  Copyright (c) 2010 Seeed Technology Inc.
+    LED bar library V2.0
+    Copyright (c) 2010 Seeed Technology Inc.
 
-  Original Author: LG
+    Original Author: LG
 
-  Modify: Loovee, 2014-2-26
-  User can choose which Io to be used.
+    Modify: Loovee, 2014-2-26
+    User can choose which Io to be used.
 
-  The MIT License (MIT)
+    The MIT License (MIT)
 
-  Copyright (c) 2013 Seeed Technology Inc.
+    Copyright (c) 2013 Seeed Technology Inc.
 
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the "Software"), to deal
-  in the Software without restriction, including without limitation the rights
-  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the Software is
-  furnished to do so, subject to the following conditions:
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
 
-  The above copyright notice and this permission notice shall be included in
-  all copies or substantial portions of the Software.
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
 
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-  THE SOFTWARE.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
 */
 
 #ifdef _MSC_BUILD
-#include<stdint.h>
+    #include<stdint.h>
 #endif
 
 #include "Grove_LED_Bar.h"
@@ -72,20 +72,19 @@ namespace Origin {
             if (LED_BAR_10 != type) {
                 send(0x00); //send cmd(0x00)
 
-                for (uint32_t i = 24; i-- > 12; ) {
+                for (uint32_t i = 24; i-- > 12;) {
                     send(led[i]);
                 }
 
                 send(0x00); //send cmd(0x00)
 
-                for (uint32_t i = 12; i-- > 0; ) {
+                for (uint32_t i = 12; i-- > 0;) {
                     send(led[i]);
                 }
-            }
-            else {
+            } else {
                 send(0x00); //send cmd(0x00)
 
-                for (uint32_t i = countOfShows; i-- > 0; ) {
+                for (uint32_t i = countOfShows; i-- > 0;) {
                     send(led[i]);
                 }
                 for (uint32_t i = 0; i < 12 - countOfShows; i++) {
@@ -93,10 +92,9 @@ namespace Origin {
                 }
             }
 
-        }
-        else {
+        } else {
             send(0x00); //send cmd(0x00)
-            
+
             for (uint32_t i = 0; i < 12; i++) {
                 send(led[i]);
             }
