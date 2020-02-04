@@ -1,4 +1,4 @@
-Grove LED Bar && Grove  Circular LED
+Grove LED Bar && Grove  Circular LED  [![Build Status](https://travis-ci.com/Seeed-Studio/Grove_LED_Bar.svg?branch=master)](https://travis-ci.com/Seeed-Studio/Grove_LED_Bar)
 -------------------------------------------------------------
 
 <figure class="half">
