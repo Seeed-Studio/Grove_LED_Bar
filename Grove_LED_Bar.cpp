@@ -148,7 +148,7 @@ void Grove_LED_Bar::setLevel(float level) {
 }
 
 void Grove_LED_Bar::setLed(uint32_t ledNo, float brightness) {
-    ledNo = max(1UL, min(countOfShows, ledNo));
+    ledNo = max((const uint32_t)1, min(countOfShows, ledNo));
     brightness = max(0.0F, min(brightness, 1.0F));
 
     // 8 (noticable) levels of brightness
